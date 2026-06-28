@@ -94,6 +94,7 @@ hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("~/.config/ml4w/scripts/ml4w-power -p
 hl.bind(mainMod .. " + SHIFT + H", hl.dsp.exec_cmd("~/.config/ml4w/scripts/ml4w-toggle-hyprsunset"), { description = "Toggle Hyprsunset" })
 hl.bind(mainMod .. " + Tab", hl.dsp.exec_cmd("qs -p ~/.config/quickshell/overview ipc call overview toggle"), { description = "Open Select Window Menu" })
 hl.bind("CTRL + ALT + T", hl.dsp.exec_cmd("~/.config/ml4w/themes/themes.sh"), { description = "Open Select Window Menu" })
+hl.bind(mainMod .. " + ALT + S", hl.dsp.exec_cmd("kitty -- bash ~/.config/ml4w/settings/install_dependencies.sh"), { description = "Install OS dependencies" })
 
 -- Example special workspace (scratchpad)
 hl.bind(mainMod .. " + ALT + M",         hl.dsp.workspace.toggle_special("magic"), { description = "Toggle special workspace magic" })
