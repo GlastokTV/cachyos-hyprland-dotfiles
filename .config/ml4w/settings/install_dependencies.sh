@@ -12,6 +12,10 @@ notify_user \
     --s "Starting dep installation" \
     --t 5000
 
+
+sudo pacman -S --needed --noconfirm discord steam libreoffice-fresh
+
+
 if command -v yay &> /dev/null; then
     echo "Yay installation found, skipping"
 else
