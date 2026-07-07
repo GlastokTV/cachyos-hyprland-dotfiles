@@ -13,7 +13,7 @@ notify_user \
     --t 5000
 
 
-sudo pacman -S --needed --noconfirm discord steam libreoffice-fresh
+sudo pacman -S --needed --noconfirm discord steam libreoffice-fresh code
 
 
 if command -v yay &> /dev/null; then
