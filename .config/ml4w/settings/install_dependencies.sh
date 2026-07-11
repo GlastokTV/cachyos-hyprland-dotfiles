@@ -55,6 +55,7 @@ echo "Installing all flatpak dependencies"
 flatpak install flathub org.gnome.Calculator
 flatpak install flathub com.tomjwatson.Emote
 flatpak install flathub app.zen_browser.zen
+flatpak install flathub com.github.PintaProject.Pinta
 # Flatpak automatically skips already installed packages, no need for manual check
 echo "Flatpak dependencies installed succesfully"
 
