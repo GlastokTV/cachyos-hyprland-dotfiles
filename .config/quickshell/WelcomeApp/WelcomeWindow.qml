@@ -312,7 +312,7 @@ FloatingWindow {
 
                     Image {
                         Layout.alignment: Qt.AlignHCenter
-                        source: "../shared/ml4w.svg"
+                        source: "../shared/gojo_satoru.png"
                         sourceSize.width: 100 
                         sourceSize.height: 100
                         width: 100
@@ -322,7 +322,7 @@ FloatingWindow {
 
                     Text {
                         Layout.alignment: Qt.AlignHCenter
-                        text: "Welcome to ML4W OS"
+                        text: "Welcome to GlastokTV OS"
                         font.family: Theme.fontFamily
                         font.pixelSize: 28
                         font.bold: true
