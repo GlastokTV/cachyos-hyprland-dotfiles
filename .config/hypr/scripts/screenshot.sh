@@ -8,107 +8,45 @@
 
 # -----------------------------------------------------
 
-# Screenshots will be stored in $HOME by default.
-# The screenshot will be moved into the screenshot directory
-
-# Defaults
-SAVE_DIR="$HOME/Pictures"
-SAVE_FILENAME="screenshot_$(date +%d%m%Y_%H%M%S).jpg"
-
-# Load Settings
-if [ -f ~/.config/ml4w/settings/screenshot-folder ]; then
-    SAVE_DIR=$(cat ~/.config/ml4w/settings/screenshot-folder)
-fi
-if [ -f ~/.config/ml4w/settings/screenshot-filename ]; then
-    SAVE_FILENAME=$(cat ~/.config/ml4w/settings/screenshot-filename)
-fi
-
-eval screenshot_folder="$SAVE_DIR"
-eval NAME="$SAVE_FILENAME"
-
-# Get image format
-image_format="png"
-extension="${NAME##*.}"
-
-case $extension in
-    "jpg"|"jpeg")
-        image_format="jpeg"
-        ;;
-    "ppm")
-        image_format="ppm"
-        ;;
-esac
-
-# Notifications
 source "$HOME/.config/ml4w/scripts/ml4w-notification-handler"
-APP_NAME="Screen Capture"
 NOTIFICATION_ICON="camera-photo-symbolic"
-ERROR_ICON="dialog-error"
 
-# Screenshot Editor
-export GRIMBLAST_EDITOR="$(cat ~/.config/ml4w/settings/screenshot-editor)"
+delay_5_seconds="5s"
+delay_10_seconds="10s"
+delay_20_seconds="20s"
+delay_30_seconds="30s"
+delay_60_seconds="60s"
 
-# Options
-option_1="Immediate"
-option_2="Delayed"
-
-option_capture_1="Capture Everything"
-option_capture_2="Capture Active Display"
-option_capture_3="Capture Selection"
-
-option_time_1="5s"
-option_time_2="10s"
-option_time_3="20s"
-option_time_4="30s"
-option_time_5="60s"
-#option_time_4="Custom (in seconds)" # Roadmap or someone contribute :)
-
-list_col='1'
-list_row='2'
-
-copy='Copy'
-save='Save'
-copy_save='Copy & Save'
-edit='Edit'
-
-# Rofi CMD
-rofi_cmd() {
-    rofi -dmenu -replace -config ~/.config/rofi/config-screenshot.rasi -i -no-show-icons -l 2 -width 30 -p "Take screenshot"
-}
-
-# Pass variables to rofi dmenu
-run_rofi() {
-    echo -e "$option_1\n$option_2" | rofi_cmd
-}
 
 ####
 # Choose Timer
 # CMD
 timer_cmd() {
-    rofi -dmenu -replace -config ~/.config/rofi/config-screenshot.rasi -i -no-show-icons -l 5 -width 30 -p "Choose timer"
+    rofi -dmenu -replace -config ~/.config/rofi/config-screenshot.rasi -i -no-show-icons -l 5 -width 30 -p "Select delay for screenshot"
 }
+# FIXME: For reasons I fail to comprehend, the "Select delay for screenshot" title is not being shown, it would be nice to fix that.
 
 # Ask for confirmation
 timer_exit() {
-    echo -e "$option_time_1\n$option_time_2\n$option_time_3\n$option_time_4\n$option_time_5" | timer_cmd
+    echo -e "$delay_5_seconds\n$delay_10_seconds\n$delay_20_seconds\n$delay_30_seconds\n$delay_60_seconds" | timer_cmd
 }
 
 # Confirm and execute
 timer_run() {
     selected_timer="$(timer_exit)"
-    if [[ "$selected_timer" == "$option_time_1" ]]; then
+    if [[ "$selected_timer" == "$delay_5_seconds" ]]; then
         countdown=5
         ${1}
-    elif [[ "$selected_timer" == "$option_time_2" ]]; then
+    elif [[ "$selected_timer" == "$delay_10_seconds" ]]; then
         countdown=10
         ${1}
-    elif [[ "$selected_timer" == "$option_time_3" ]]; then
+    elif [[ "$selected_timer" == "$delay_20_seconds" ]]; then
         countdown=20
         ${1}
-    elif [[ "$selected_timer" == "$option_time_4" ]]; then
+    elif [[ "$selected_timer" == "$delay_30_seconds" ]]; then
         countdown=30
         ${1}
-    elif [[ "$selected_timer" == "$option_time_5" ]]; then
+    elif [[ "$selected_timer" == "$delay_60_seconds" ]]; then
         countdown=60
         ${1}
     else
@@ -117,71 +55,6 @@ timer_run() {
 }
 ###
 
-####
-# Chose Screenshot Type
-# CMD
-type_screenshot_cmd() {
-    rofi -dmenu -replace -config ~/.config/rofi/config-screenshot.rasi -i -no-show-icons -l 3 -width 30 -p "Type of screenshot"
-}
-
-# Ask for confirmation
-type_screenshot_exit() {
-    echo -e "$option_capture_1\n$option_capture_2\n$option_capture_3" | type_screenshot_cmd
-}
-
-# Confirm and execute
-type_screenshot_run() {
-    selected_type_screenshot="$(type_screenshot_exit)"
-    if [[ "$selected_type_screenshot" == "$option_capture_1" ]]; then
-        option_type_screenshot=screen
-        ${1}
-    elif [[ "$selected_type_screenshot" == "$option_capture_2" ]]; then
-        option_type_screenshot=output
-        ${1}
-    elif [[ "$selected_type_screenshot" == "$option_capture_3" ]]; then
-        option_type_screenshot=area
-        ${1}
-    else
-        exit
-    fi
-}
-###
-
-####
-# Choose to save or copy photo
-# CMD
-copy_save_editor_cmd() {
-    rofi -dmenu -replace -config ~/.config/rofi/config-screenshot.rasi -i -no-show-icons -l 4 -width 30 -p "How to save"
-}
-
-# Ask for confirmation
-copy_save_editor_exit() {
-    echo -e "$copy\n$save\n$copy_save\n$edit" | copy_save_editor_cmd
-}
-
-# Confirm and execute
-# Note: `grimblast` only supports png output when copy is specified
-copy_save_editor_run() {
-    selected_chosen="$(copy_save_editor_exit)"
-    if [[ "$selected_chosen" == "$copy" ]]; then
-        option_chosen=copy
-        image_format=png
-        ${1}
-    elif [[ "$selected_chosen" == "$save" ]]; then
-        option_chosen=save
-        ${1}
-    elif [[ "$selected_chosen" == "$copy_save" ]]; then
-        option_chosen=copysave
-        image_format=png
-        ${1}
-    elif [[ "$selected_chosen" == "$edit" ]]; then
-        option_chosen=edit
-        ${1}
-    else
-        exit
-    fi
-}
-###
 
 timer() {
     if [[ $countdown -gt 10 ]]; then
@@ -208,80 +81,19 @@ timer() {
 }
 
 
-screenshot_notification() {
-
-    notify_user \
-        --a "${APP_NAME}" \
-        --i "${NOTIFICATION_ICON}" \
-        --s "Screenshot taken" \
-        --m "$(
-            case "$option_chosen" in
-            save)     echo "Screenshot saved to $screenshot_folder/$NAME" ;;
-            copy)     echo "Copied to clipboard" ;;
-            copysave) echo "Copied to clipboard and saved to path $screenshot_folder/$NAME" ;;
-            *)         echo "" ;;
-            esac
-        )" \
-        --t 5000
-}
-
-# take shots
-takescreenshot() {
-    # The first positional argument of this function MUST be the $option_type_screenshot variable
-    sleep 1
-
-    if [[ "$selected_chosen" == "$edit" ]]; then
-        notify_user \
-            --a "${APP_NAME}" \
-            --i "${NOTIFICATION_ICON}" \
-            --s "Opening image editor" \
-            --m "The screenshot is being loaded to the default image editor" \
-            --t 5000
-        sleep 1
-        grimblast "$option_chosen" --filetype "$image_format" "$1" $screenshot_folder/$NAME
-    else
-        grimblast "$option_chosen" --filetype "$image_format" "$1" $screenshot_folder/$NAME
-        screenshot_notification
-    fi
-}
-
 takescreenshot_timer() {
     # The first positional argument of this function MUST be the $option_type_screenshot variable
     sleep 1
     timer
-    takescreenshot $1
+    flameshot gui
 }
 
-## START INSTANT SCREENSHOTS ##
-# Handle instant flags
-if [[ "$1" == "--instant" ]]; then
-    copy_save_editor_run "takescreenshot screen"
-    exit 0
-elif [[ "$1" == "--instant-area" ]]; then
-    copy_save_editor_run "takescreenshot area"
-    exit 0
-fi
-## END INSTANT SCREENSHOTS. DO NOT MOVE BELOW RUN_CMD() AND THE FINAL CASE, IT BREAKS THE INSTANT SCREENSHOTS ##
 
 # Execute Command
-run_cmd() {
-    if [[ "$1" == '--opt1' ]]; then
-        type_screenshot_run
-        copy_save_editor_run "takescreenshot $option_type_screenshot"
-    elif [[ "$1" == '--opt2' ]]; then
-        timer_run
-        type_screenshot_run
-        copy_save_editor_run "takescreenshot_timer $option_type_screenshot"
-    fi
-}
+if [[ "$1" == '--immediate' ]]; then
+    flameshot gui
+elif [[ "$1" == '--delayed' ]]; then
+    timer_run
+    takescreenshot_timer
+fi
 
-# Actions
-chosen="$(run_rofi)"
-case ${chosen} in
-    $option_1)
-        run_cmd --opt1
-        ;;
-    $option_2)
-        run_cmd --opt2
-        ;;
-esac
