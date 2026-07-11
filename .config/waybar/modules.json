@@ -59,7 +59,7 @@
     "on-click": "qs ipc call sidebar toggle",
     "on-click-right": "qs ipc call welcome toggle",
     "format": " ",
-    "tooltip-format": "Left: Open ML4W Sidebar\nRight: Open ML4W Welcome App"
+    "tooltip-format": "Left: Open Sidebar\nRight: Open Welcome App"
   },
   // Empty
   "custom/empty": {
