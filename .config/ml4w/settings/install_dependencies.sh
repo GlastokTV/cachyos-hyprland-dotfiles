@@ -13,7 +13,7 @@ notify_user \
     --t 5000
 
 
-sudo pacman -S --needed --noconfirm discord steam libreoffice-fresh code
+sudo pacman -S --needed --noconfirm discord steam libreoffice-fresh code evolution gnome-keyring libsecret
 
 
 if command -v yay &> /dev/null; then
