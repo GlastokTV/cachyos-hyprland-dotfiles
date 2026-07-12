@@ -11,6 +11,7 @@ hl.bind(mainMod .. " + CTRL + G", hl.dsp.exec_cmd("steam"), { description = "Ope
 hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("~/.config/ml4w/settings/calculator.sh"), { description = "Open calculator" })
 hl.bind(mainMod .. " + CTRL + D", hl.dsp.exec_cmd("discord"), { description = "Open discord" })
 hl.bind(mainMod .. " + O", hl.dsp.exec_cmd("libreoffice"), { description = "Open LibreOffice" })
+hl.bind("CTRL + SHIFT + ESCAPE", hl.dsp.exec_cmd("$(cat ~/.config/ml4w/settings/terminal.sh) --class dotfiles-floating -e btop"), { description = "Open resource manager" })
 
 
 -- fr keyboard layout setup
