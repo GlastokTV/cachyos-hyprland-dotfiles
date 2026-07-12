@@ -16,6 +16,7 @@ notify_user \
 sudo pacman -S --needed --noconfirm discord steam libreoffice-fresh code evolution gnome-keyring libsecret
 
 
+### yay configuration start
 if command -v yay &> /dev/null; then
     echo "Yay installation found, skipping"
 else
@@ -34,16 +35,42 @@ else
     cd yay
     makepkg -si
 fi
+### yay configuration end
 
+
+
+### SDDM configuration start
 yay -S --noconfirm --needed sddm-theme-sugar-candy
 
 sudo truncate -s 0 /etc/sddm.conf
 printf '%b' "[Theme]\nCurrent=Sugar-Candy" | sudo tee -a /etc/sddm.conf >/dev/null
-# Add images to /usr/share/sddm/themes/Sugar-Candy/Backgrounds to change the background as desired
-# The modify the /usr/share/sddm/themes/Sugar-Candy/theme.conf file's "Background" variable to the file desired
+
+## Set personalized SDDM background image start
+sudo rm -f /usr/share/sddm/themes/Sugar-Candy/Backgrounds/Nocturne-of-Steel-and-Glass.png # Delete the file if it exists and avoid errors
+sudo cp ~/.mydotfiles/com.ml4w.dotfiles.stable/.config/ml4w/wallpapers/Nocturne-of-Steel-and-Glass.png /usr/share/sddm/themes/Sugar-Candy/Backgrounds/Nocturne-of-Steel-and-Glass.png
+# It is important to COPY the file, the SYMLINKS DO NOT WORK for some reason
+
+file="/usr/share/sddm/themes/Sugar-Candy/theme.conf"
+new_line='Background="Backgrounds/Nocturne-of-Steel-and-Glass.png"'
+
+sudo awk -v nl="$new_line" '
+  BEGIN{done=0}
+  /^[[:space:]]*Background="Backgrounds/{
+    if(!done){ print nl; done=1; next }
+  }
+  { print }
+' "$file" | sudo tee "${file}.tmp" >/dev/null && sudo mv "${file}.tmp" "$file"
+
+# This command automatically searchs for the first line that starts with 'Background="Backgrounds' (allowing whitespaces) and then replaces it with the
+# $new_line variable, which is a symlink created previously
+## Set personalized SDDM background image end
 
 echo "SDDM installed and configured, please restart the computer for it to take effect."
+### SDDM configuration end
 
+
+
+### Flatpak configuration start
 if command -v flatpak &> /dev/null; then
     echo "Flatpak installation found, skipping..."
 else
@@ -55,7 +82,7 @@ echo "Installing all flatpak dependencies"
 flatpak install flathub org.gnome.Calculator com.tomjwatson.Emote app.zen_browser.zen com.github.PintaProject.Pinta
 # Flatpak automatically skips already installed packages, no need for manual check
 echo "Flatpak dependencies installed succesfully"
-
+### Flatpak configuration end
 
 notify_user \
     --a "${APP_NAME}" \
