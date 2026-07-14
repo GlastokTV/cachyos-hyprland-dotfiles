@@ -12,6 +12,7 @@ hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("~/.config/ml4w/settings/calculator.s
 hl.bind(mainMod .. " + CTRL + D", hl.dsp.exec_cmd("discord"), { description = "Open discord" })
 hl.bind(mainMod .. " + O", hl.dsp.exec_cmd("libreoffice"), { description = "Open LibreOffice" })
 hl.bind("CTRL + SHIFT + ESCAPE", hl.dsp.exec_cmd("$(cat ~/.config/ml4w/settings/terminal.sh) --class dotfiles-floating -e btop"), { description = "Open resource manager" })
+hl.bind(mainMod .. " + ALT + B", hl.dsp.exec_cmd("blueman-manager"), { description = "Open blueman bluetooth manager" })
 
 
 -- fr keyboard layout setup
@@ -42,7 +43,6 @@ end
 
 -- Windows
 hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd("~/.config/hypr/scripts/killactive.sh"), { description = "Kill active window" })
--- hl.bind(mainMod .. " + Q", hl.dsp.window.close(), { description = "Kill active window" })
 hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exec_cmd("hyprctl activewindow | grep pid | tr -d 'pid:' | xargs kill"), { description = "Quit active window and all open instances" })
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }), { description = "Toggle Fullscreen" })
 hl.bind(mainMod .. " + M", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }), { description = "Toggle Maximize Window" })
@@ -96,6 +96,9 @@ hl.bind(mainMod .. " + SHIFT + H", hl.dsp.exec_cmd("~/.config/ml4w/scripts/ml4w-
 hl.bind(mainMod .. " + Tab", hl.dsp.exec_cmd("qs -p ~/.config/quickshell/overview ipc call overview toggle"), { description = "Open Select Window Menu" })
 hl.bind("CTRL + ALT + T", hl.dsp.exec_cmd("~/.config/ml4w/themes/themes.sh"), { description = "Open Select Window Menu" })
 hl.bind(mainMod .. " + ALT + S", hl.dsp.exec_cmd("kitty -- bash ~/.config/ml4w/settings/install_dependencies.sh"), { description = "Install OS dependencies" })
+hl.bind(mainMod .. " + Tab", hl.dsp.exec_cmd("qs -p ~/.config/quickshell/overview ipc call overview toggle"), { description = "Open Select Window Menu" })
+hl.bind(mainMod .. " + SHIFT + ALT + B", hl.dsp.exec_cmd("~/.config/ml4w/scripts/glastoktv-toggle-bluetooth"), { description = "Toggle bluetooth" })
+
 
 -- Example special workspace (scratchpad)
 hl.bind(mainMod .. " + ALT + M",         hl.dsp.workspace.toggle_special("magic"), { description = "Toggle special workspace magic" })
