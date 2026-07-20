@@ -13,6 +13,7 @@ hl.bind(mainMod .. " + CTRL + D", hl.dsp.exec_cmd("discord"), { description = "O
 hl.bind(mainMod .. " + O", hl.dsp.exec_cmd("libreoffice"), { description = "Open LibreOffice" })
 hl.bind("CTRL + SHIFT + ESCAPE", hl.dsp.exec_cmd("$(cat ~/.config/ml4w/settings/terminal.sh) --class dotfiles-floating -e btop"), { description = "Open resource manager" })
 hl.bind(mainMod .. " + ALT + B", hl.dsp.exec_cmd("blueman-manager"), { description = "Open blueman bluetooth manager" })
+hl.bind(mainMod .. " + ALT + C", hl.dsp.exec_cmd("flatpak run org.telegram.desktop"), { description = "Open Telegram" })
 
 
 -- fr keyboard layout setup

@@ -79,7 +79,7 @@ else
 fi
 
 echo "Installing all flatpak dependencies"
-flatpak install flathub org.gnome.Calculator com.tomjwatson.Emote app.zen_browser.zen com.github.PintaProject.Pinta
+flatpak install flathub org.gnome.Calculator com.tomjwatson.Emote app.zen_browser.zen com.github.PintaProject.Pinta org.telegram.desktop
 # Flatpak automatically skips already installed packages, no need for manual check
 echo "Flatpak dependencies installed succesfully"
 ### Flatpak configuration end
