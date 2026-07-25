@@ -99,7 +99,7 @@ hl.bind("CTRL + ALT + T", hl.dsp.exec_cmd("~/.config/ml4w/themes/themes.sh"), { 
 hl.bind(mainMod .. " + ALT + S", hl.dsp.exec_cmd("kitty -- bash ~/.config/ml4w/settings/install_dependencies.sh"), { description = "Install OS dependencies" })
 hl.bind(mainMod .. " + Tab", hl.dsp.exec_cmd("qs -p ~/.config/quickshell/overview ipc call overview toggle"), { description = "Open Select Window Menu" })
 hl.bind(mainMod .. " + SHIFT + ALT + B", hl.dsp.exec_cmd("~/.config/ml4w/scripts/glastoktv-toggle-bluetooth"), { description = "Toggle bluetooth" })
-
+hl.bind(mainMod .. " + U", hl.dsp.exec_cmd("~/.config/ml4w/settings/installupdates.sh"), {description = "Update system"})
 
 -- Example special workspace (scratchpad)
 hl.bind(mainMod .. " + ALT + M",         hl.dsp.workspace.toggle_special("magic"), { description = "Toggle special workspace magic" })
